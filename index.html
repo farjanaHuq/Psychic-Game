@@ -20,20 +20,16 @@
 
     <script type="text/javascript">
 
-
-
-
-        var machineGuessElem = document.getElementById("machine-guess");   
+        var machineGuessElem = document.getElementById("machine-guess");
         var winsCounter = document.getElementById("wins");
-        var lossCounter = document.getElementById("loses"); 
+        var lossCounter = document.getElementById("loses");
         var guessLeftCounter = document.getElementById("guess-left");
         var lastUserGuess = document.getElementById("user-guess");
-    
-
 
         var wins = 0;
         var loses = 0;
         var userGuessLimit = 5;
+
         //Array to store the user guesses.
         var userGuessArr = [];
 
@@ -50,60 +46,57 @@
 
         // on key up for user choice
         document.onkeyup = function (event) {
-            var userGuess = event.key; 
+            var userGuess = event.key;
             console.log(userGuess);
 
-        //Check if the user guess is already choosen or not
-        
-        if (!"abcdefghijklmnopqrstuvwxyz".split("").includes(userGuess.toLowerCase())) { // turns all 26s chars into elements in an array; if user choice isn't in new array, do console.log
-               console.log("Invalid Choice \"" + userGuess + "\"!");
-        }
-        else if(userGuessArr.includes(userGuess)){
-             alert("You have already choosed this letter : " + userGuess);
-        }
-        else {
-            console.log(lastUserGuess, userGuess);
-            userGuessArr.push(userGuess);
-          // display the user guesses in the your guess so far section.
-            lastUserGuess.textContent = userGuessArr.join(" , ");
-        }
-       
-        //if else statement for loses and wins counter
-        // if wins >= 1 then increase winscounter and clear the previous user choices
+            //Check if the user guess is already choosen or not
 
-        if(userGuess == machineGuess){
-            wins++;
-            alert("Congratulation! You won the game!");
-             //restart the game
-            userGuessArr = [];                          
-            lastUserGuess.textContent = null;
-            // Create random number for machine guess
-            randomNums = Math.floor(Math.random() * (randomGuess.length - 1));
-            machineGuess = randomGuess[randomNums];
-            machineGuessElem.textContent = machineGuess;
-            console.log(machineGuess);
-        }
-        //if loses>1 then increase losescounter and restart the game
-        else if((userGuess != machineGuess)&& (userGuessLimit > 1)){
-            userGuessLimit--;
-        }
-        else if((userGuess != machineGuess)&& (userGuessLimit == 1)){
-            loses++;
-            alert("You Loose :-(");
+            if (!"abcdefghijklmnopqrstuvwxyz".split("").includes(userGuess.toLowerCase())) {
+                console.log("Invalid Choice \"" + userGuess + "\"!");
+            }
+            else if (userGuessArr.includes(userGuess)) {
+                alert("You have already choosed this letter : " + userGuess);
+            }
+            else {
+                console.log(lastUserGuess, userGuess);
+                userGuessArr.push(userGuess);
+                // display the user guesses in the your guess so far section.
+                lastUserGuess.textContent = userGuessArr.join(" , ");
+            }
+
+            //if else statement for loses and wins counter
+            // if wins >= 1 then increase winscounter and clear the previous user choices
+
+            if (userGuess == machineGuess) {
+                wins++;
+                alert("Congratulation! You won the game!");
+                //restart the game
+                userGuessArr = [];
+                lastUserGuess.textContent = null;
+                // Create random number for machine guess
+                randomNums = Math.floor(Math.random() * (randomGuess.length));
+                machineGuess = randomGuess[randomNums];
+                machineGuessElem.textContent = machineGuess;
+                console.log(machineGuess);
+            }
+            //if loses>1 then increase losescounter and restart the game
+            else if ((userGuess != machineGuess) && (userGuessLimit > 1)) {
+                userGuessLimit--;
+            }
+            else if ((userGuess != machineGuess) && (userGuessLimit == 1)) {
+                loses++;
+                alert("You Loose :-(");
+
+                userGuessArr = [];
+                lastUserGuess.textContent = null;
+                // Create random number for machine guess
+                randomNums = Math.floor(Math.random() * (randomGuess.length));
+                machineGuess = randomGuess[randomNums];
+                machineGuessElem.textContent = machineGuess;
+                console.log(machineGuess);
+            }
             
-            userGuessArr = [];                          
-            lastUserGuess.textContent = null;
-            // Create random number for machine guess
-            randomNums = Math.floor(Math.random() * (randomGuess.length - 1));
-            machineGuess = randomGuess[randomNums];
-            machineGuessElem.textContent = machineGuess;
-            console.log(machineGuess);
-        }
-        
-        // count guess left 
-        // count wins 
-        // count loses
-        
+
             winsCounter.textContent = wins;                 //display wins
             lossCounter.textContent = loses;                //display loses
             guessLeftCounter.textContent = userGuessLimit;  // display guess left
